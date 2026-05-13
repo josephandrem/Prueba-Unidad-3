@@ -1,0 +1,10 @@
+Estudiante: Joseph Segovia
+Resultado (Promedio): 7.2
+Fecha: 13/05/2026
+Lenguaje: C++
+-----------------------------------
+Estudiante: Alex Campos
+Resultado (Promedio): 7.8
+Fecha: 13/05/2026
+Lenguaje: C++
+-----------------------------------

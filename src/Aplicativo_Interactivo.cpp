@@ -1,10 +1,10 @@
 #include <iostream>
 #include <string>
-#include <fstream> // Para persistencia en archivos [cite: 11]
+#include <fstream>
 
 using namespace std;
 
-// --- DECLARACIÓN DE PROTOTIPOS (Funciones void) ---
+// --- PROTOTIPOS ---
 void menu();
 void operacionesBasicas();
 void registroNotas(float &prom, float &may, float &men, int &aprob, int &reprob);
@@ -12,7 +12,6 @@ void guardarResultados(float prom);
 
 int main() {
     int opcion;
-    // Variables para almacenar resultados de notas y pasarlas entre funciones
     float promedio = 0, mayor = 0, menor = 0;
     int aprobados = 0, reprobados = 0;
 
@@ -25,7 +24,6 @@ int main() {
                 operacionesBasicas();
                 break;
             case 2:
-                // Se pasan variables por referencia para actualizar sus valores
                 registroNotas(promedio, mayor, menor, aprobados, reprobados);
                 break;
             case 3:
@@ -37,45 +35,51 @@ int main() {
             default:
                 cout << "Opcion no valida. Intente de nuevo." << endl;
         }
-    } while (opcion != 4); // Ciclo do-while [cite: 11, 13]
+    } while (opcion != 4);
 
     return 0;
 }
 
+// --- MENÚ ---
+void menu() {
+    cout << "\n========================================" << endl;
+    cout << "   APLICATIVO INTERACTIVO - ALGORITMOS" << endl;
+    cout << "========================================" << endl;
+    cout << "1. Operaciones basicas" << endl;
+    cout << "2. Registro de notas (Arreglos)" << endl;
+    cout << "3. Guardar resultados (Persistencia)" << endl;
+    cout << "4. Salir" << endl;
+    cout << "Seleccione una opcion: ";
+}
 
-// --- PARTE 2: OPERACIONES MATEMÁTICAS [cite: 14, 15] ---
+// --- OPERACIONES BÁSICAS ---
 void operacionesBasicas() {
     float a, b;
     cout << "Ingrese primer numero: "; cin >> a;
     cout << "Ingrese segundo numero: "; cin >> b;
-    cout << "Suma: " << a + b << endl;
-    cout << "Resta: " << a - b << endl;
+    cout << "Suma: "           << a + b << endl;
+    cout << "Resta: "          << a - b << endl;
     cout << "Multiplicacion: " << a * b << endl;
-    
-    // Validando division para cero 
-    if (b != 0) {
+    if (b != 0)
         cout << "Division: " << a / b << endl;
-    } else {
+    else
         cout << "Error: Division para cero no permitida." << endl;
-    }
 }
 
-// --- PARTE 3: ARREGLOS Y PROCESAMIENTO [cite: 16, 17] ---
+// --- REGISTRO DE NOTAS ---
 void registroNotas(float &prom, float &may, float &men, int &aprob, int &reprob) {
-    float notas[5]; // Arreglo unidimensional [cite: 11]
+    float notas[5];
     float suma = 0;
     aprob = 0; reprob = 0;
 
     for (int i = 0; i < 5; i++) {
         cout << "Ingrese nota " << i + 1 << " (0-10): ";
         cin >> notas[i];
-        suma += notas[i]; // Acumulador [cite: 11]
+        suma += notas[i];
 
-        // Contador de aprobados/reprobados [cite: 11]
-        if (notas[i] >= 7) aprob++; 
+        if (notas[i] >= 7) aprob++;
         else reprob++;
 
-        // Lógica para nota mayor y menor
         if (i == 0) {
             may = men = notas[i];
         } else {
@@ -83,30 +87,31 @@ void registroNotas(float &prom, float &may, float &men, int &aprob, int &reprob)
             if (notas[i] < men) men = notas[i];
         }
     }
+
     prom = suma / 5;
     cout << "\n--- RESULTADOS DEL PARCIAL ---" << endl;
-    cout << "Promedio: " << prom << endl;
-    cout << "Nota mas alta: " << may << endl;
-    cout << "Nota mas baja: " << men << endl;
-    cout << "Cantidad Aprobados: " << aprob << endl;
-    cout << "Cantidad Reprobados: " << reprob << endl;
+    cout << "Promedio: "           << prom   << endl;
+    cout << "Nota mas alta: "      << may    << endl;
+    cout << "Nota mas baja: "      << men    << endl;
+    cout << "Cantidad Aprobados: " << aprob  << endl;
+    cout << "Cantidad Reprobados: "<< reprob << endl;
 }
 
-// --- PARTE 4: PERSISTENCIA EN ARCHIVOS [cite: 18, 19] ---
+// --- GUARDAR RESULTADOS ---
 void guardarResultados(float prom) {
     string nombre;
     ofstream archivo;
-    
+
     cout << "Ingrese nombre del estudiante: ";
     cin.ignore();
     getline(cin, nombre);
 
-    archivo.open("resultados.txt", ios::app); // Persistencia [cite: 11, 18]
+    archivo.open("resultados.txt", ios::app);
     if (archivo.is_open()) {
-        archivo << "Estudiante: " << nombre << endl;
-        archivo << "Resultado (Promedio): " << prom << endl;
-        archivo << "Fecha: 13/05/2026" << endl; // Fecha solicitada 
-        archivo << "Lenguaje: C++" << endl;
+        archivo << "Estudiante: "          << nombre << endl;
+        archivo << "Resultado (Promedio): " << prom   << endl;
+        archivo << "Fecha: 13/05/2026"               << endl;
+        archivo << "Lenguaje: C++"                   << endl;
         archivo << "-----------------------------------" << endl;
         archivo.close();
         cout << "Archivo 'resultados.txt' actualizado con exito." << endl;
