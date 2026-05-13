@@ -91,3 +91,26 @@ void registroNotas(float &prom, float &may, float &men, int &aprob, int &reprob)
     cout << "Cantidad Aprobados: " << aprob << endl;
     cout << "Cantidad Reprobados: " << reprob << endl;
 }
+
+// --- PARTE 4: PERSISTENCIA EN ARCHIVOS [cite: 18, 19] ---
+void guardarResultados(float prom) {
+    string nombre;
+    ofstream archivo;
+    
+    cout << "Ingrese nombre del estudiante: ";
+    cin.ignore();
+    getline(cin, nombre);
+
+    archivo.open("resultados.txt", ios::app); // Persistencia [cite: 11, 18]
+    if (archivo.is_open()) {
+        archivo << "Estudiante: " << nombre << endl;
+        archivo << "Resultado (Promedio): " << prom << endl;
+        archivo << "Fecha: 13/05/2026" << endl; // Fecha solicitada 
+        archivo << "Lenguaje: C++" << endl;
+        archivo << "-----------------------------------" << endl;
+        archivo.close();
+        cout << "Archivo 'resultados.txt' actualizado con exito." << endl;
+    } else {
+        cout << "Error al abrir el archivo." << endl;
+    }
+}
