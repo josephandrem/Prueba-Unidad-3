@@ -42,17 +42,6 @@ int main() {
     return 0;
 }
 
-// --- PARTE 1: MENÚ INTERACTIVO [cite: 12, 13] ---
-void menu() {
-    cout << "\n========================================" << endl;
-    cout << "   APLICATIVO INTERACTIVO - ALGORITMOS   " << endl;
-    cout << "========================================" << endl;
-    cout << "1. Operaciones basicas" << endl;
-    cout << "2. Registro de notas" << endl;
-    cout << "3. Guardar resultados" << endl;
-    cout << "4. Salir" << endl;
-    cout << "Seleccione una opcion: ";
-}
 
 // --- PARTE 2: OPERACIONES MATEMÁTICAS [cite: 14, 15] ---
 void operacionesBasicas() {
@@ -68,60 +57,5 @@ void operacionesBasicas() {
         cout << "Division: " << a / b << endl;
     } else {
         cout << "Error: Division para cero no permitida." << endl;
-    }
-}
-
-// --- PARTE 3: ARREGLOS Y PROCESAMIENTO [cite: 16, 17] ---
-void registroNotas(float &prom, float &may, float &men, int &aprob, int &reprob) {
-    float notas[5]; // Arreglo unidimensional [cite: 11]
-    float suma = 0;
-    aprob = 0; reprob = 0;
-
-    for (int i = 0; i < 5; i++) {
-        cout << "Ingrese nota " << i + 1 << " (0-10): ";
-        cin >> notas[i];
-        suma += notas[i]; // Acumulador [cite: 11]
-
-        // Contador de aprobados/reprobados [cite: 11]
-        if (notas[i] >= 7) aprob++; 
-        else reprob++;
-
-        // Lógica para nota mayor y menor
-        if (i == 0) {
-            may = men = notas[i];
-        } else {
-            if (notas[i] > may) may = notas[i];
-            if (notas[i] < men) men = notas[i];
-        }
-    }
-    prom = suma / 5;
-    cout << "\n--- RESULTADOS DEL PARCIAL ---" << endl;
-    cout << "Promedio: " << prom << endl;
-    cout << "Nota mas alta: " << may << endl;
-    cout << "Nota mas baja: " << men << endl;
-    cout << "Cantidad Aprobados: " << aprob << endl;
-    cout << "Cantidad Reprobados: " << reprob << endl;
-}
-
-// --- PARTE 4: PERSISTENCIA EN ARCHIVOS [cite: 18, 19] ---
-void guardarResultados(float prom) {
-    string nombre;
-    ofstream archivo;
-    
-    cout << "Ingrese nombre del estudiante: ";
-    cin.ignore();
-    getline(cin, nombre);
-
-    archivo.open("resultados.txt", ios::app); // Persistencia [cite: 11, 18]
-    if (archivo.is_open()) {
-        archivo << "Estudiante: " << nombre << endl;
-        archivo << "Resultado (Promedio): " << prom << endl;
-        archivo << "Fecha: 13/05/2026" << endl; // Fecha solicitada 
-        archivo << "Lenguaje: C++" << endl;
-        archivo << "-----------------------------------" << endl;
-        archivo.close();
-        cout << "Archivo 'resultados.txt' actualizado con exito." << endl;
-    } else {
-        cout << "Error al abrir el archivo." << endl;
     }
 }
