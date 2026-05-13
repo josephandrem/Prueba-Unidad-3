@@ -59,3 +59,35 @@ void operacionesBasicas() {
         cout << "Error: Division para cero no permitida." << endl;
     }
 }
+
+// --- PARTE 3: ARREGLOS Y PROCESAMIENTO [cite: 16, 17] ---
+void registroNotas(float &prom, float &may, float &men, int &aprob, int &reprob) {
+    float notas[5]; // Arreglo unidimensional [cite: 11]
+    float suma = 0;
+    aprob = 0; reprob = 0;
+
+    for (int i = 0; i < 5; i++) {
+        cout << "Ingrese nota " << i + 1 << " (0-10): ";
+        cin >> notas[i];
+        suma += notas[i]; // Acumulador [cite: 11]
+
+        // Contador de aprobados/reprobados [cite: 11]
+        if (notas[i] >= 7) aprob++; 
+        else reprob++;
+
+        // Lógica para nota mayor y menor
+        if (i == 0) {
+            may = men = notas[i];
+        } else {
+            if (notas[i] > may) may = notas[i];
+            if (notas[i] < men) men = notas[i];
+        }
+    }
+    prom = suma / 5;
+    cout << "\n--- RESULTADOS DEL PARCIAL ---" << endl;
+    cout << "Promedio: " << prom << endl;
+    cout << "Nota mas alta: " << may << endl;
+    cout << "Nota mas baja: " << men << endl;
+    cout << "Cantidad Aprobados: " << aprob << endl;
+    cout << "Cantidad Reprobados: " << reprob << endl;
+}
